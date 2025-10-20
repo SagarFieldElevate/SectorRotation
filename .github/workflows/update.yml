@@ -1,0 +1,23 @@
+name: Auto Update Sector Returns
+
+on:
+  schedule:
+    - cron: "0 6 2 * *"   # 6am UTC, 2nd of each month
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install yfinance pandas openpyxl python-dateutil
+      - run: python update_sector_returns.py
+      - run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add Field_Elevate_Sector_Monthly_Returns.xlsx
+          git commit -m "Auto update $(date '+%Y-%m-%d')" || echo "No changes"
+          git push
