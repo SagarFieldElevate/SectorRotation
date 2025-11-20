@@ -6,7 +6,8 @@
       "Bash(py.exe:*)",
       "Bash(py:*)",
       "Bash(ls:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(pip install:*)"
     ],
     "deny": []
   }
